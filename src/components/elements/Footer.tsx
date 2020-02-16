@@ -7,7 +7,7 @@ const Footer = () => {
 
         </>
     );
-}
+};
 
 const Wrapper = styled.div`
 

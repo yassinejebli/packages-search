@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SearchInput from "./SearchBar";
 import {theme} from "../../theme/theme";
 import ModuleList from "./ModuleList";
+import Pagination from "./Pagination";
 
 const {margin} = theme;
 
@@ -11,6 +12,7 @@ const Content = () => {
     return (
         <Wrapper>
             <SearchInput />
+            <Pagination />
             <ModuleList/>
         </Wrapper>
     );

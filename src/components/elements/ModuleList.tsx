@@ -12,7 +12,7 @@ const {margin} = theme;
 
 const ModuleList = () => {
     const dispatch = useDispatch();
-    const {isLoading, error, moduleList} = useSelector<ModuleState, ModuleState>((state: ModuleState)=>state);
+    const {isLoading, error, moduleList} = useSelector<any, ModuleState>(state=>state.moduleState);
 
     React.useEffect(()=>{
         dispatch(
@@ -30,6 +30,7 @@ const ModuleList = () => {
             </LoaderIconWrapper>
         );
 
+    const rowCount = 100; //TODO:
     return (
         <Wrapper>
             {moduleList.map((module: ModuleModel) =>

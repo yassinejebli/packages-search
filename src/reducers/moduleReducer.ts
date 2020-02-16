@@ -5,6 +5,7 @@ export interface MetaData {
     page: number;
     perPage: number;
     total: number;
+    searchText: string;
 }
 
 export interface ModuleState{
@@ -21,7 +22,8 @@ const moduleState: ModuleState = {
     meta:{
         page: 1,
         perPage: 5,
-        total: 0
+        total: 0,
+        searchText: ''
     }
 };
 

@@ -2,6 +2,7 @@ import {Actions} from "../constants/Constants";
 import {getModules} from "../api/Api";
 import {ModuleModel} from "../models/ModuleModel";
 import {serializeQuery} from "../utils/Utils";
+import {MetaData} from "../reducers/moduleReducer";
 
 const loadModulesBegin = () => {
     return {
@@ -9,10 +10,11 @@ const loadModulesBegin = () => {
     };
 };
 
-const loadModulesSuccess = (moduleList: Array<ModuleModel>) => {
+const loadModulesSuccess = (moduleList: Array<ModuleModel>, meta: MetaData) => {
     return {
         type: Actions.LOAD_MODULES_SUCCESS,
-        moduleList
+        moduleList,
+        meta
     };
 };
 
@@ -23,16 +25,19 @@ const loadModulesFail = () => {
 };
 
 export const loadModules = (searchText: string = '') => {
-    return function(dispatch: any, getState: any) {
-        const {meta} = getState();
+    return (dispatch: any, getState: any) => {
+        const {paginationState} = getState();
         dispatch(loadModulesBegin());
         return getModules(`?${serializeQuery({
-            per_page: meta.perPage,
-            page: meta.page,
+            per_page: paginationState.perPage,
+            page: paginationState.page,
             q: searchText
         })}`).then((jsonArray: any) => {
                 const moduleList = jsonArray.map((json:any)=>new ModuleModel(json));
-                dispatch(loadModulesSuccess(moduleList));
+                dispatch(loadModulesSuccess(moduleList, {
+                    ...paginationState,
+                    searchText
+                }));
             })
             .catch((err) => {
                 dispatch(loadModulesFail());

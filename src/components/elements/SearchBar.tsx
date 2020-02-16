@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {theme} from "../../theme/theme";
 import {useDispatch} from "react-redux";
 import {loadModules} from "../../actions/moduleActions";
-import useDebounce from "../custom-hooks/useDebounce";
+import useDebounce from "../../hooks/useDebounce";
 
 const {padding, fontWeight, fontSize, color} = theme;
 
@@ -13,9 +13,9 @@ const SearchBar = () => {
     const debouncedSearchText: string = useDebounce(searchText, 500);
 
     React.useEffect(()=>{
-            dispatch(
-                loadModules(debouncedSearchText.toLowerCase())
-            );
+        dispatch(
+            loadModules(debouncedSearchText.toLowerCase())
+        );
     }, [debouncedSearchText]);
 
     const onSearchTextChange = ({target: {value}}: React.ChangeEvent<HTMLInputElement>) => setSearchText(value);
