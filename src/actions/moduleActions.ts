@@ -13,8 +13,10 @@ const loadModulesBegin = () => {
 const loadModulesSuccess = (moduleList: Array<ModuleModel>, meta: MetaData) => {
     return {
         type: Actions.LOAD_MODULES_SUCCESS,
-        moduleList,
-        meta
+        payload: {
+            moduleList,
+            meta
+        }
     };
 };
 
@@ -24,19 +26,35 @@ const loadModulesFail = () => {
     };
 };
 
-export const loadModules = (searchText: string = '') => {
+export const setSearchText = (searchText: string) => {
+    return {
+        type: Actions.SET_SEARCH_TEXT,
+        payload: searchText
+    };
+};
+
+export const setCurrentPage = (currentPage: number) => {
+    return {
+        type: Actions.SET_CURRENT_PAGE,
+        payload: currentPage
+    };
+};
+
+export const loadModules = () => {
     return (dispatch: any, getState: any) => {
-        const {paginationState} = getState();
+        const {searchText, meta:{currentPage}} = getState();
+
         dispatch(loadModulesBegin());
         return getModules(`?${serializeQuery({
-            per_page: paginationState.perPage,
-            page: paginationState.page,
+            per_page: 5,
+            page: currentPage,
             q: searchText
         })}`).then((jsonArray: any) => {
                 const moduleList = jsonArray.map((json:any)=>new ModuleModel(json));
                 dispatch(loadModulesSuccess(moduleList, {
-                    ...paginationState,
-                    searchText
+                    perPage: 5,
+                    total: 100,
+                    currentPage
                 }));
             })
             .catch((err) => {

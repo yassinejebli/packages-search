@@ -12,7 +12,7 @@ const {margin} = theme;
 
 const ModuleList = () => {
     const dispatch = useDispatch();
-    const {isLoading, error, moduleList} = useSelector<any, ModuleState>(state=>state.moduleState);
+    const {isLoading, error, moduleList} = useSelector<ModuleState, ModuleState>(state=>state);
 
     React.useEffect(()=>{
         dispatch(

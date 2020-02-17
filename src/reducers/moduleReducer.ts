@@ -2,13 +2,13 @@ import {Actions} from '../constants/Constants';
 import {ModuleModel} from "../models/ModuleModel";
 
 export interface MetaData {
-    page: number;
+    currentPage: number;
     perPage: number;
     total: number;
-    searchText: string;
 }
 
 export interface ModuleState{
+    searchText: string;
     moduleList: Array<ModuleModel>;
     isLoading: boolean;
     error: boolean;
@@ -16,29 +16,46 @@ export interface ModuleState{
 }
 
 const moduleState: ModuleState = {
+    searchText: '',
     moduleList: [],
     isLoading: false,
     error: false,
     meta:{
-        page: 1,
+        currentPage: 1,
         perPage: 5,
-        total: 0,
-        searchText: ''
+        total: 0
     }
 };
 
-const moduleReducer = (state = moduleState, action: ModuleState&{type: string}): ModuleState => {
-    switch(action.type) {
+const moduleReducer = (state: ModuleState = moduleState, action: any): ModuleState => {
+    switch (action.type) {
         case Actions.LOAD_MODULES_BEGIN:
-            return { ...state, isLoading: true };
+            return {...state, isLoading: true};
         case Actions.LOAD_MODULES_SUCCESS:
-            return { ...state,
-                moduleList: action.moduleList,
-                isLoading: false,
-                meta: {...state.meta, ...action.meta}
+            return {
+                ...state,
+                moduleList: action.payload.moduleList,
+                meta: action.payload.meta,
+                isLoading: false
             };
         case Actions.LOAD_MODULES_FAIL:
-            return { ...state, error: true };
+            return {
+                ...moduleState,
+                error: true
+            };
+        case Actions.SET_SEARCH_TEXT:
+            return {
+                ...state,
+                searchText: action.payload
+            };
+        case Actions.SET_CURRENT_PAGE:
+            return {
+                ...state,
+                meta: {
+                    ...state.meta,
+                    currentPage: action.payload
+                }
+            };
         default:
             return state;
     }
