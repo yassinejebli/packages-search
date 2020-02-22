@@ -14,12 +14,14 @@ const SearchBar = () => {
     const debouncedSearchText: string = useDebounce(searchText, 500);
 
     React.useEffect(()=>{
-        dispatch(
-            setSearchText(debouncedSearchText)
-        );
-        dispatch(
-            loadModules()
-        ); //TODO: I think it's better to create a new action (searchAndLoadModules) that dispatches these two actions!
+        if(debouncedSearchText){
+            dispatch(
+                setSearchText(debouncedSearchText)
+            );
+            dispatch(
+                loadModules()
+            ); //TODO: I think it's better to create a new action (searchAndLoadModules) that dispatches these two actions!
+        }
     }, [debouncedSearchText]);
 
     const onSearchTextChange = ({target: {value}}: React.ChangeEvent<HTMLInputElement>) =>

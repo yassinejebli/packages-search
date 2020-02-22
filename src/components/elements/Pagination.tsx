@@ -12,16 +12,18 @@ const {fontSize} = theme;
 const Pagination = () => {
     const dispatch = useDispatch();
     const {total, perPage} = useSelector<ModuleState, MetaData>(state=>state.meta);
-    const [selectedPage, setSelectedPage] = React.useState(1);
+    const [selectedPage, setSelectedPage] = React.useState();
     const debouncedSelectedPage: number = useDebounce(selectedPage, 500);
 
     React.useEffect(()=>{
-        dispatch(
-            setCurrentPage(selectedPage)
-        );
-        dispatch(
-            loadModules()
-        ); //TODO: I think it's better to create a new action (setCurrentPageAndLoadModules) that dispatches these two actions!
+        if(debouncedSelectedPage){
+            dispatch(
+                setCurrentPage(selectedPage)
+            );
+            dispatch(
+                loadModules()
+            ); //TODO: I think it's better to create a new action (setCurrentPageAndLoadModules) that dispatches these two actions!
+        }
     }, [debouncedSelectedPage]);
 
     const onPageChange = ({selected}: {selected: number}) => {
@@ -38,7 +40,7 @@ const Pagination = () => {
                 pageRangeDisplayed={perPage}
                 activeClassName="active" // bootstrap
                 containerClassName="pagination"
-                marginPagesDisplayed={0}
+                marginPagesDisplayed={1}
                 onPageChange={onPageChange}
             />
         </Wrapper>

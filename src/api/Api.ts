@@ -1,8 +1,9 @@
-export const getModules = async (query: string): Promise<unknown> => {
-    return await fetch('https://libraries.io/api/bower-search'+query)
-        .then(async response => {
-            response.headers.forEach(console.log);
-            return await response.json();
+export const getModules = (query: string): Promise<unknown> => {
+    return fetch('https://libraries.io/api/bower-search'+query)
+        .then( (response:any) => {
+            // response.headers.forEach(console.log);
+            console.log('header', response.headers['Per-Page']);
+            return response.json();
         })
         .catch(error => {throw new Error(error)});
 };

@@ -81,11 +81,11 @@ const StyledStarIcon = styled(StarIcon)`
 const StarsText = styled.div`
     font-size: ${fontSize.s};
     margin-left: ${margin.xs};
+    margin-top: 1.4px;
 `;
 
 const Stars = styled.div`
     display: flex;
-    align-items: flex-end;
     margin-top: ${margin.xs};
     opacity: ${opacity.l};
 `;

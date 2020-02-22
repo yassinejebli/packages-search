@@ -30,7 +30,6 @@ const ModuleList = () => {
             </LoaderIconWrapper>
         );
 
-    const rowCount = 100; //TODO:
     return (
         <Wrapper>
             {moduleList.map((module: ModuleModel) =>
