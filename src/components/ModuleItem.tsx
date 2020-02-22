@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import {theme} from "../../theme/theme";
+import {theme} from "../theme/theme";
 import Tag from "./Tag";
-import {numFormatter} from "../../utils/Utils";
-import {ModuleModel} from "../../models/ModuleModel";
-import { ReactComponent as StarIcon } from "../../assets/icons/star.svg";
+import {numFormatter} from "../utils/Utils";
+import {ModuleModel} from "../models/ModuleModel";
+import { ReactComponent as StarIcon } from "../assets/icons/star.svg";
 
 const {opacity, padding,  margin, fontWeight, fontSize, color} = theme;
 

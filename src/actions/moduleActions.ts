@@ -26,34 +26,54 @@ const loadModulesFail = () => {
     };
 };
 
-export const setSearchText = (searchText: string) => {
-    return {
-        type: Actions.SET_SEARCH_TEXT,
-        payload: searchText
+export const filterModules = (searchText: string) => {
+    return (dispatch: any, getState: any) => {
+        dispatch({
+            type: Actions.SET_SEARCH_TEXT,
+            payload: searchText
+        });
+        dispatch(loadModules());
     };
 };
 
 export const setCurrentPage = (currentPage: number) => {
-    return {
-        type: Actions.SET_CURRENT_PAGE,
-        payload: currentPage
+    return (dispatch: any, getState: any) => {
+        dispatch({
+            type: Actions.SET_CURRENT_PAGE,
+            payload: currentPage
+        });
+        dispatch(loadModules());
+    }
+};
+
+
+export const sortModulesByStars = (sortedByStars: boolean) => {
+    return (dispatch: any, getState: any) => {
+        dispatch({
+            type: Actions.SORT_MODULES_BY_STARS,
+            payload: sortedByStars
+        });
+        dispatch(loadModules());
     };
 };
 
 export const loadModules = () => {
     return (dispatch: any, getState: any) => {
-        const {searchText, meta:{currentPage}} = getState();
+        const {searchText, meta:{currentPage, sortedByStars}} = getState();
 
         dispatch(loadModulesBegin());
-        return getModules(`?api_key=6afd0e4c0eb2d1a2bca1d3132c0781ec&${serializeQuery({
+        return getModules(`?${serializeQuery({
             per_page: 5,
             page: currentPage,
-            q: searchText
+            q: searchText,
+            sort: sortedByStars?'stars':''
         })}`).then((jsonArray: any) => {
                 const moduleList = jsonArray.map((json:any)=>new ModuleModel(json));
+
                 dispatch(loadModulesSuccess(moduleList, {
                     perPage: 5,
-                    total: 100,
+                    total: 500, //normally per page and total values should come from libraries.io, but because of CORS issue we can't do that
+                    sortedByStars: sortedByStars,
                     currentPage
                 }));
             })

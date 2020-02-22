@@ -1,31 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import {theme} from "../../theme/theme";
-import {useDispatch, useSelector} from "react-redux";
-import {loadModules, setSearchText} from "../../actions/moduleActions";
-import useDebounce from "../../hooks/useDebounce";
-import {ModuleState} from "../../reducers/moduleReducer";
+import {theme} from "../theme/theme";
+import {useDispatch} from "react-redux";
+import {filterModules} from "../actions/moduleActions";
+import useDebounce from "../hooks/useDebounce";
 
 const {padding, fontWeight, fontSize, color} = theme;
 
 const SearchBar = () => {
     const dispatch = useDispatch();
-    const searchText = useSelector<ModuleState, string>(state=>state.searchText);
+    const [searchText, setSearchText] = React.useState('');
     const debouncedSearchText: string = useDebounce(searchText, 500);
 
     React.useEffect(()=>{
-        if(debouncedSearchText){
-            dispatch(
-                setSearchText(debouncedSearchText)
-            );
-            dispatch(
-                loadModules()
-            ); //TODO: I think it's better to create a new action (searchAndLoadModules) that dispatches these two actions!
-        }
+        dispatch(
+            filterModules(debouncedSearchText)
+        );
     }, [debouncedSearchText]);
 
-    const onSearchTextChange = ({target: {value}}: React.ChangeEvent<HTMLInputElement>) =>
-        dispatch(setSearchText(value));
+    const onSearchTextChange = ({target: {value}}: React.ChangeEvent<HTMLInputElement>) => setSearchText(value);
 
     return (
         <StyledInput

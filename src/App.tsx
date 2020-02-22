@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import {store} from "./store/store";
-import Header from "./components/elements/Header";
+import Header from "./components/Header";
 import GlobalStyle from "./theme/theme";
-import SideBar from "./components/elements/SideBar";
+import SideBar from "./components/SideBar";
 import styled from "styled-components";
-import Content from "./components/elements/Content";
+import Content from "./components/Content";
 
 const App = () => {
     return (

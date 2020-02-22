@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {theme} from "../../theme/theme";
+import {theme} from "../theme/theme";
 
 const logoPath = process.env.PUBLIC_URL + '/assets/images/logo.svg';
 const {margin, padding, fontWeight, fontSize, color, backgroundColor, opacity} = theme;

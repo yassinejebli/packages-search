@@ -5,6 +5,7 @@ export interface MetaData {
     currentPage: number;
     perPage: number;
     total: number;
+    sortedByStars: boolean;
 }
 
 export interface ModuleState{
@@ -23,7 +24,8 @@ const moduleState: ModuleState = {
     meta:{
         currentPage: 1,
         perPage: 5,
-        total: 0
+        total: 0,
+        sortedByStars: false
     }
 };
 
@@ -54,6 +56,14 @@ const moduleReducer = (state: ModuleState = moduleState, action: any): ModuleSta
                 meta: {
                     ...state.meta,
                     currentPage: action.payload
+                }
+            };
+        case Actions.SORT_MODULES_BY_STARS:
+            return {
+                ...state,
+                meta: {
+                    ...state.meta,
+                    sortedByStars: action.payload
                 }
             };
         default:

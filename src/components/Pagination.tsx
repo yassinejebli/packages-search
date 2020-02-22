@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
-import {theme} from "../../theme/theme";
+import {theme} from "../theme/theme";
 import {useDispatch, useSelector} from "react-redux";
-import {loadModules, setCurrentPage} from "../../actions/moduleActions";
-import {MetaData, ModuleState} from "../../reducers/moduleReducer";
-import useDebounce from "../../hooks/useDebounce";
+import {setCurrentPage} from "../actions/moduleActions";
+import {MetaData, ModuleState} from "../reducers/moduleReducer";
+import useDebounce from "../hooks/useDebounce";
 
 const {fontSize} = theme;
 
@@ -20,9 +20,6 @@ const Pagination = () => {
             dispatch(
                 setCurrentPage(selectedPage)
             );
-            dispatch(
-                loadModules()
-            ); //TODO: I think it's better to create a new action (setCurrentPageAndLoadModules) that dispatches these two actions!
         }
     }, [debouncedSelectedPage]);
 
@@ -36,7 +33,7 @@ const Pagination = () => {
             <ReactPaginate
                 nextLabel=">"
                 previousLabel="<"
-                pageCount={total}
+                pageCount={total/perPage}
                 pageRangeDisplayed={perPage}
                 activeClassName="active" // bootstrap
                 containerClassName="pagination"
