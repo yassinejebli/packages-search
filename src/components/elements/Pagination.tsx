@@ -5,21 +5,27 @@ import {theme} from "../../theme/theme";
 import {useDispatch, useSelector} from "react-redux";
 import {loadModules, setCurrentPage} from "../../actions/moduleActions";
 import {MetaData, ModuleState} from "../../reducers/moduleReducer";
+import useDebounce from "../../hooks/useDebounce";
 
 const {fontSize} = theme;
 
 const Pagination = () => {
     const dispatch = useDispatch();
     const {total, perPage} = useSelector<ModuleState, MetaData>(state=>state.meta);
+    const [selectedPage, setSelectedPage] = React.useState(1);
+    const debouncedSelectedPage: number = useDebounce(selectedPage, 500);
 
-    //TODO: need to debounce pagination
-    const onPageChange = ({selected}: {selected: number}) => {
+    React.useEffect(()=>{
         dispatch(
-            setCurrentPage(selected+1)
+            setCurrentPage(selectedPage)
         );
         dispatch(
             loadModules()
         ); //TODO: I think it's better to create a new action (setCurrentPageAndLoadModules) that dispatches these two actions!
+    }, [debouncedSelectedPage]);
+
+    const onPageChange = ({selected}: {selected: number}) => {
+        setSelectedPage(selected+1);
     };
 
     return (
@@ -30,6 +36,7 @@ const Pagination = () => {
                 previousLabel="<"
                 pageCount={total}
                 pageRangeDisplayed={perPage}
+                activeClassName="active" // bootstrap
                 containerClassName="pagination"
                 marginPagesDisplayed={0}
                 onPageChange={onPageChange}
@@ -42,6 +49,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 `;
 
 const ModulesFoundText = styled.div`
