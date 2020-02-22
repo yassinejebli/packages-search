@@ -45,7 +45,7 @@ export const loadModules = () => {
         const {searchText, meta:{currentPage}} = getState();
 
         dispatch(loadModulesBegin());
-        return getModules(`?${serializeQuery({
+        return getModules(`?api_key=6afd0e4c0eb2d1a2bca1d3132c0781ec&${serializeQuery({
             per_page: 5,
             page: currentPage,
             q: searchText
