@@ -2,7 +2,9 @@ import {Actions} from "../constants/Constants";
 import {getModules} from "../api/Api";
 import {ModuleModel} from "../models/ModuleModel";
 import {serializeQuery} from "../utils/Utils";
-import {MetaData} from "../reducers/moduleReducer";
+import {MetaData, ModuleState} from "../reducers/moduleReducer";
+import {AnyAction} from "redux";
+import {ThunkDispatch} from "redux-thunk";
 
 const loadModulesBegin = () => {
     return {
@@ -27,7 +29,7 @@ const loadModulesFail = () => {
 };
 
 export const filterModules = (searchText: string) => {
-    return (dispatch: any, getState: any) => {
+    return (dispatch: ThunkDispatch<ModuleState, {}, AnyAction>) => {
         dispatch({
             type: Actions.SET_SEARCH_TEXT,
             payload: searchText
@@ -37,7 +39,7 @@ export const filterModules = (searchText: string) => {
 };
 
 export const setCurrentPage = (currentPage: number) => {
-    return (dispatch: any, getState: any) => {
+    return (dispatch: ThunkDispatch<ModuleState, {}, AnyAction>) => {
         dispatch({
             type: Actions.SET_CURRENT_PAGE,
             payload: currentPage
@@ -48,7 +50,7 @@ export const setCurrentPage = (currentPage: number) => {
 
 
 export const sortModulesByStars = (sortedByStars: boolean) => {
-    return (dispatch: any, getState: any) => {
+    return (dispatch: ThunkDispatch<ModuleState, {}, AnyAction>) => {
         dispatch({
             type: Actions.SORT_MODULES_BY_STARS,
             payload: sortedByStars
@@ -58,25 +60,25 @@ export const sortModulesByStars = (sortedByStars: boolean) => {
 };
 
 export const loadModules = () => {
-    return (dispatch: any, getState: any) => {
-        const {searchText, meta:{currentPage, sortedByStars}} = getState();
+    return (dispatch: ThunkDispatch<ModuleState, {}, AnyAction>, getState: () => ModuleState) => {
+        const {searchText, meta: {currentPage, sortedByStars}} = getState();
 
         dispatch(loadModulesBegin());
-        return getModules(`?${serializeQuery({
+        getModules(`?${serializeQuery({
             per_page: 5,
             page: currentPage,
             q: searchText,
-            sort: sortedByStars?'stars':''
+            sort: sortedByStars ? 'stars' : ''
         })}`).then((jsonArray: any) => {
-                const moduleList = jsonArray.map((json:any)=>new ModuleModel(json));
+            const moduleList = jsonArray.map((json: any) => new ModuleModel(json));
 
-                dispatch(loadModulesSuccess(moduleList, {
-                    perPage: 5,
-                    total: 500, //normally per page and total values should come from libraries.io, but because of CORS issue we can't do that
-                    sortedByStars: sortedByStars,
-                    currentPage
-                }));
-            })
+            dispatch(loadModulesSuccess(moduleList, {
+                perPage: 5,
+                total: 500, //normally per page and total values should come from libraries.io, but because of CORS issue we can't do that
+                sortedByStars: sortedByStars,
+                currentPage
+            }));
+        })
             .catch((err) => {
                 dispatch(loadModulesFail());
                 console.error(err);

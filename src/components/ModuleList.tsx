@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {theme} from "../theme/theme";
 import ModuleItem from "./ModuleItem";
 import {useDispatch, useSelector} from "react-redux";
@@ -32,8 +32,8 @@ const ModuleList = () => {
 
     return (
         <Wrapper>
-            {moduleList.map((module: ModuleModel) =>
-                    <StyledModuleItem key={module.name} {...module}/>
+            {moduleList.map((module: ModuleModel, index: number) =>
+                    <StyledModuleItem isLast={index===moduleList.length-1} key={module.name} {...module}/>
                 )
             }
         </Wrapper>
@@ -44,8 +44,11 @@ const Wrapper = styled.div`
     margin-top: ${margin.l};
 `;
 
-const StyledModuleItem = styled(ModuleItem)`
+const StyledModuleItem = styled(ModuleItem)<{isLast: boolean}>`
     margin-top: ${margin.l};
+    ${(props)=>props.isLast&&css`
+        border-bottom: none;
+    `}
 `;
 
 const LoaderIconWrapper = styled.div`

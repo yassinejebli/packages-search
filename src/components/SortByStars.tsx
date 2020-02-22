@@ -16,7 +16,7 @@ const SortByStars = () => {
         );
     };
     return (
-        <Wrapper title="Sort by stars" onClick={onModulesSortByStars}>
+        <Wrapper title="Sort modules by stars" onClick={onModulesSortByStars}>
             <SortIcon style={{fill: sortedByStars?theme.color.lightBlue:theme.color.lightGray2}}/>
         </Wrapper>
     );

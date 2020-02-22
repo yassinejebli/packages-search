@@ -6,6 +6,7 @@ import GlobalStyle from "./theme/theme";
 import SideBar from "./components/SideBar";
 import styled from "styled-components";
 import Content from "./components/Content";
+import Footer from "./components/Footer";
 
 const App = () => {
     return (
@@ -16,6 +17,7 @@ const App = () => {
                 <SideBar/>
                 <Content/>
             </Container>
+            <Footer />
         </Provider>
     );
 };

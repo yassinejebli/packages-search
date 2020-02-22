@@ -9,7 +9,7 @@ const spacing = {
     xxl: '64px'
 };
 
-const palate = {
+const colors = {
     white: '#ffffff',
     black: '#000000',
     lightBlue: '#00acee',
@@ -25,10 +25,6 @@ const opacity = {
     s: 0.16,
     m: 0.32,
     l: 0.64
-};
-
-const colors = {
-    ...palate
 };
 
 export const theme = {
@@ -53,7 +49,6 @@ export const theme = {
     },
     color: {
         ...colors
-
     },
     backgroundColor: {
         ...colors
