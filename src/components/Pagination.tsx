@@ -33,7 +33,7 @@ const Pagination = () => {
             <ReactPaginate
                 nextLabel=">"
                 previousLabel="<"
-                pageCount={total/perPage}
+                pageCount={Math.ceil(total/perPage)}
                 pageRangeDisplayed={perPage}
                 activeClassName="active" // bootstrap
                 containerClassName="pagination"
