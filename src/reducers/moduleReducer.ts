@@ -16,7 +16,7 @@ export interface ModuleState{
     meta: MetaData;
 }
 
-const moduleState: ModuleState = {
+export const moduleState: ModuleState = {
     searchText: '',
     moduleList: [],
     isLoading: false,
@@ -24,7 +24,7 @@ const moduleState: ModuleState = {
     meta:{
         currentPage: 1,
         perPage: 5,
-        total: 0,
+        total: 500, // :/
         sortedByStars: false
     }
 };

@@ -1,23 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 import {theme} from "../theme/theme";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {sortModulesByStars} from "../actions/moduleActions";
-import {ModuleState} from "../reducers/moduleReducer";
 import {ReactComponent as SortIcon} from "../assets/icons/sort.svg";
+import useDebounce from "../hooks/useDebounce";
 
 const SortByStars = () => {
     const dispatch = useDispatch();
-    const sortedByStars = useSelector<ModuleState, boolean>(state => state.meta.sortedByStars);
+    const [sortedByStars, setSortedByStars] = React.useState(false);
+    const debouncedSortedByStars = useDebounce(sortedByStars, 500);
+
+    React.useEffect(()=>{
+        dispatch(
+            sortModulesByStars(debouncedSortedByStars)
+        );
+    }, [debouncedSortedByStars]);
 
     const onModulesSortByStars = () => {
-        dispatch(
-            sortModulesByStars(!sortedByStars)
-        );
+        setSortedByStars(!sortedByStars);
     };
     return (
-        <Wrapper title="Sort modules by stars" onClick={onModulesSortByStars}>
-            <SortIcon style={{fill: sortedByStars?theme.color.lightBlue:theme.color.lightGray2}}/>
+        <Wrapper title="Sort modules by stars"
+                 onClick={onModulesSortByStars}
+                 data-testid="sort"
+        >
+            <SortIcon data-testid="sort-icon"
+                      style={{fill: debouncedSortedByStars?theme.color.lightBlue:theme.color.lightGray2}}
+            />
         </Wrapper>
     );
 };

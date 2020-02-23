@@ -18,7 +18,7 @@ const ModuleItem = ({name,
                       className}: ModuleModel&React.HTMLAttributes<HTMLDivElement>) => {
     return (
         <Wrapper className={className}>
-            <a href={repositoryURL} target="_blank">
+            <a href={repositoryURL} target="_blank" data-testid="module-item-url">
                 <Title>{name}</Title>
             </a>
             <HomePage href={homepage}>

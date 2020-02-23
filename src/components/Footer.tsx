@@ -46,7 +46,7 @@ const Wrapper = styled.footer`
 
 `;
 
-const Header = styled.h3`
+const Header = styled.h4`
 
 `;
 
@@ -54,7 +54,6 @@ const Link = styled.a`
     margin-top: ${margin.m};
     display: block;
     cursor: pointer;
-    font-size: ${fontSize.l};
     
 `;
 

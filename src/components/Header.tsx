@@ -15,7 +15,7 @@ const Header = () => {
                 <MenuItem>Stats</MenuItem>
             </MenuItemsWrapper>
             <LogoTitleWrapper>
-                <Logo />
+                <Logo data-testid="logo" />
                 <div>
                     <Title>BLABLA Search</Title>
                     <SubTitle>Powered by blabla</SubTitle>

@@ -25,9 +25,16 @@ const ModuleList = () => {
 
     if(isLoading)
         return (
-            <LoaderIconWrapper>
+            <Center>
                 <LoaderIcon />
-            </LoaderIconWrapper>
+            </Center>
+        );
+
+    if(!Boolean(moduleList.length))
+        return (
+            <Center>
+                No results, please try a different query
+            </Center>
         );
 
     return (
@@ -51,7 +58,10 @@ const StyledModuleItem = styled(ModuleItem)<{isLast: boolean}>`
     `}
 `;
 
-const LoaderIconWrapper = styled.div`
-    margin: 100px auto;
+const Center = styled.div`
+    margin: 100px;
+    display: flex;
+    justify-content: center;
 `;
+
 export default ModuleList;

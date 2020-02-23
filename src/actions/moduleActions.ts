@@ -6,13 +6,13 @@ import {MetaData, ModuleState} from "../reducers/moduleReducer";
 import {AnyAction} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 
-const loadModulesBegin = () => {
+export const loadModulesBegin = () => {
     return {
         type: Actions.LOAD_MODULES_BEGIN
     };
 };
 
-const loadModulesSuccess = (moduleList: Array<ModuleModel>, meta: MetaData) => {
+export const loadModulesSuccess = (moduleList: Array<ModuleModel>, meta: MetaData) => {
     return {
         type: Actions.LOAD_MODULES_SUCCESS,
         payload: {
@@ -64,7 +64,7 @@ export const loadModules = () => {
         const {searchText, meta: {currentPage, sortedByStars}} = getState();
 
         dispatch(loadModulesBegin());
-        getModules(`?${serializeQuery({
+        return getModules(`?${serializeQuery({
             per_page: 5,
             page: currentPage,
             q: searchText,
