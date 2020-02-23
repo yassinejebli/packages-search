@@ -87,10 +87,6 @@ const LogoTitleWrapper = styled.div`
      justify-content: center;
      align-items: center;
      margin-top: ${margin.l};
-     
-     @media (max-width: 768px){
-        justify-content: start;
-    }
 `;
 
 const SubTitle = styled(Title)`
