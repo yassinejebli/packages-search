@@ -22,6 +22,7 @@ const SearchBar = () => {
 
     return (
         <StyledInput
+            data-testid="search-bar"
             placeholder="Search..."
             value={searchText}
             onChange={onSearchTextChange}

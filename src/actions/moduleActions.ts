@@ -34,7 +34,7 @@ export const filterModules = (searchText: string) => {
             type: Actions.SET_SEARCH_TEXT,
             payload: searchText
         });
-        dispatch(loadModules());
+        return dispatch(loadModules());
     };
 };
 
@@ -44,7 +44,7 @@ export const setCurrentPage = (currentPage: number) => {
             type: Actions.SET_CURRENT_PAGE,
             payload: currentPage
         });
-        dispatch(loadModules());
+        return dispatch(loadModules());
     }
 };
 
@@ -55,7 +55,7 @@ export const sortModulesByStars = (sortedByStars: boolean) => {
             type: Actions.SORT_MODULES_BY_STARS,
             payload: sortedByStars
         });
-        dispatch(loadModules());
+        return dispatch(loadModules());
     };
 };
 

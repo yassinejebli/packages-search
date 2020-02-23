@@ -25,20 +25,20 @@ const ModuleList = () => {
 
     if(isLoading)
         return (
-            <Center>
+            <Center data-testid="is-loading">
                 <LoaderIcon />
             </Center>
         );
 
     if(!Boolean(moduleList.length))
         return (
-            <Center>
+            <Center data-testid="not-results">
                 No results, please try a different query
             </Center>
         );
 
     return (
-        <Wrapper>
+        <Wrapper data-testid="module-list">
             {moduleList.map((module: ModuleModel, index: number) =>
                     <StyledModuleItem isLast={index===moduleList.length-1} key={module.name} {...module}/>
                 )

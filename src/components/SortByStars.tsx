@@ -9,7 +9,7 @@ import useDebounce from "../hooks/useDebounce";
 const SortByStars = () => {
     const dispatch = useDispatch();
     const [sortedByStars, setSortedByStars] = React.useState(false);
-    const debouncedSortedByStars = useDebounce(sortedByStars, 500);
+    const debouncedSortedByStars = useDebounce(sortedByStars, 200);
 
     React.useEffect(()=>{
         dispatch(
@@ -26,7 +26,7 @@ const SortByStars = () => {
                  data-testid="sort"
         >
             <SortIcon data-testid="sort-icon"
-                      style={{fill: debouncedSortedByStars?theme.color.lightBlue:theme.color.lightGray2}}
+                      style={{fill: sortedByStars?theme.color.lightBlue:theme.color.lightGray2}}
             />
         </Wrapper>
     );

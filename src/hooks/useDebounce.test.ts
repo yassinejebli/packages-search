@@ -4,7 +4,7 @@ import useDebounce from "./useDebounce";
 jest.useFakeTimers();
 
 describe('useDebounce', () => {
-    it('should update value when delay is passed',  ()=>{
+    it('should update value after delay passes',  ()=>{
         const delay = 500;
         const { result, rerender } = renderHook(
             ({ value, delay }) => useDebounce(value, delay),
@@ -15,7 +15,7 @@ describe('useDebounce', () => {
 
         rerender({value: '11', delay: delay});
         act( ()=>{
-            jest.runTimersToTime(500);
+            jest.runTimersToTime(delay);
         });
 
         expect(result.current).toBe('11');

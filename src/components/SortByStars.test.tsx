@@ -1,6 +1,6 @@
 import React from "react";
 import {Provider} from "react-redux";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
